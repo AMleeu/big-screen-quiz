@@ -1,16 +1,27 @@
 <template>
   <div id="app">
       <Header /> 
+
+      <b-container>
+        <b-row>
+          <b-col md="6" offset-md="3">
+            <QuestionBox />
+          </b-col>
+        </b-row>
+      </b-container>
+
   </div>
 </template>
 
 <script>
+import QuestionBox from "./components/QuestionBox.vue"
 import Header from "./components/Header.vue"
 
 export default {
   name: 'App',
   components: {
-    Header
+    Header,
+    QuestionBox
   }
 }
 </script>
