@@ -1,7 +1,7 @@
 <template>
   <b-jumbotron>
     <template #lead>
-        did you know this and that?
+       <span v-html="currentQuestion.question "></span>
     </template>
 
     <hr class="my-4" />
@@ -14,3 +14,11 @@
     <b-button variant="success" href="#">NEXT</b-button>
   </b-jumbotron>
 </template>
+
+<script>
+export default {
+  props: {
+    currentQuestion: Object
+  }
+}
+</script>
