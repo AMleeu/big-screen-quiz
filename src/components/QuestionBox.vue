@@ -11,14 +11,15 @@
     </p>
 
     <b-button variant="primary" class="mr-3" href="#">SUBMIT</b-button>
-    <b-button variant="success" href="#">NEXT</b-button>
+    <b-button variant="success" href="#" @click="next">NEXT</b-button>
   </b-jumbotron>
 </template>
 
 <script>
 export default {
   props: {
-    currentQuestion: Object
+    currentQuestion: Object,
+    next: Function
   }
 }
 </script>
