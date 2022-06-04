@@ -5,7 +5,10 @@
     <b-container>
       <b-row>
         <b-col md="6" offset-md="3">
-          <QuestionBox :currentQuestion="questions[index]"/>
+          <QuestionBox
+            v-if="questions.length"
+            :currentQuestion="questions[index]"
+          />
         </b-col>
       </b-row>
     </b-container>
@@ -22,24 +25,26 @@ export default {
     Header,
     QuestionBox,
   },
-  data(){
+  data() {
     return {
       questions: [],
-      index: 0
-    }
+      index: 0,
+    };
   },
   mounted: function () {
     fetch(
       "https://opentdb.com/api.php?amount=10&category=11&difficulty=easy&type=multiple",
       { method: "GET" }
-    ).then((response)=>{
-      // format fetched data in json format & return it
-      let jsonData = response.json();
-      return jsonData;
-    }).then((jsonData)=>{
-      // feed application state property with jsonData
-      this.questions = jsonData.results;
-    });
+    )
+      .then((response) => {
+        // format fetched data in json format & return it
+        let jsonData = response.json();
+        return jsonData;
+      })
+      .then((jsonData) => {
+        // feed application state property with jsonData
+        this.questions = jsonData.results;
+      });
   },
 };
 </script>
