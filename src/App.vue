@@ -1,29 +1,46 @@
 <template>
   <div id="app">
-      <Header /> 
+    <Header />
 
-      <b-container>
-        <b-row>
-          <b-col md="6" offset-md="3">
-            <QuestionBox />
-          </b-col>
-        </b-row>
-      </b-container>
-
+    <b-container>
+      <b-row>
+        <b-col md="6" offset-md="3">
+          <QuestionBox />
+        </b-col>
+      </b-row>
+    </b-container>
   </div>
 </template>
 
 <script>
-import QuestionBox from "./components/QuestionBox.vue"
-import Header from "./components/Header.vue"
+import QuestionBox from "./components/QuestionBox.vue";
+import Header from "./components/Header.vue";
 
 export default {
-  name: 'App',
+  name: "App",
   components: {
     Header,
-    QuestionBox
-  }
-}
+    QuestionBox,
+  },
+  data(){
+    return {
+      questions: []
+    }
+  },
+  mounted: function () {
+    fetch(
+      "https://opentdb.com/api.php?amount=10&category=11&difficulty=easy&type=multiple",
+      { method: "GET" }
+    ).then((response)=>{
+      // format fetched data in json format & return it
+      let jsonData = response.json();
+      return jsonData;
+    }).then((jsonData)=>{
+      // feed application state property with jsonData
+      this.questions = jsonData.results;
+    });
+  },
+};
 </script>
 
 <style>
