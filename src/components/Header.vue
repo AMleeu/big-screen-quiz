@@ -1,6 +1,6 @@
 <template>
     <b-nav tabs>
-      <b-nav-item disabled class="mt-2"><h4>BIBLE Quiz</h4></b-nav-item>
+      <b-nav-item disabled class="mt-2"><h4>BIG SCREEN Quiz</h4></b-nav-item>
       <b-nav-item disabled>
           <b-button variant="secondary">
             right <b-badge variant="light" class="lead">0</b-badge>
