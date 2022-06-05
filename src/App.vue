@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <Header />
+    <Header :correctAnswers="correctAnswers" :totalAnswers="totalAnswers" />
 
     <b-container>
       <b-row>
@@ -8,7 +8,8 @@
           <QuestionBox
             v-if="questions.length"
             :currentQuestion="questions[index]"
-            :next = "next"
+            :next="next"
+            :calcScore="calcScore"
           />
         </b-col>
       </b-row>
@@ -30,12 +31,20 @@ export default {
     return {
       questions: [],
       index: 0,
+      totalAnswers: 0,
+      correctAnswers: 0,
     };
   },
-  methods:{
-    next(){
-      this.index++
-    }
+  methods: {
+    next() {
+      this.index++;
+    },
+    calcScore(isCorrect) {
+      if (isCorrect) {
+        this.correctAnswers++;
+      }
+      this.totalAnswers++;
+    },
   },
   mounted: function () {
     fetch(

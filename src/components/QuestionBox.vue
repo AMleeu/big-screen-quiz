@@ -11,13 +11,19 @@
         v-for="(answer, index) in answers"
         :key="index"
         v-html="answer"
-        @click = "selectAnswer(index)"
+        @click="selectAnswer(index)"
         :class="[selectedIndex === index ? 'selected' : '']"
       >
       </b-list-group-item>
     </b-list-group>
 
-    <b-button variant="primary" class="mr-3" :disabled="selectedIndex === null">SUBMIT</b-button>
+    <b-button
+      variant="primary"
+      class="mr-3"
+      :disabled="selectedIndex === null"
+      @click="submitAnswer"
+      >SUBMIT</b-button
+    >
     <b-button variant="success" href="#" @click="next">NEXT</b-button>
   </b-jumbotron>
 </template>
@@ -30,6 +36,7 @@ export default {
   props: {
     currentQuestion: Object,
     next: Function,
+    calcScore: Function,
   },
   data() {
     return {
@@ -46,9 +53,23 @@ export default {
       // shuffle the answers such that the correct answer is not always last
       this.answers = _.shuffle(answers);
     },
-    selectAnswer(index){
+    selectAnswer(index) {
       this.selectedIndex = index;
-    }
+    },
+    submitAnswer() {
+      // first we determine the index of correct_answer
+      let correctIndex = this.answers.indexOf(
+        this.currentQuestion.correct_answer
+      );
+
+      let isCorrect = false;
+
+      if (this.selectedIndex === correctIndex) {
+        isCorrect = true;
+      }
+
+      this.calcScore(isCorrect);
+    },
   },
   watch: {
     currentQuestion: {
@@ -77,15 +98,15 @@ export default {
 }
 
 .selected,
-.selected:hover{
+.selected:hover {
   background-color: #007bff;
   color: #fff;
-  cursor:auto;
+  cursor: auto;
 }
-.correct{
+.correct {
   background-color: #28a745;
 }
-.incorrect{
+.incorrect {
   background-color: #dc3545;
 }
 </style>
