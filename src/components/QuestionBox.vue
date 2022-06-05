@@ -20,7 +20,7 @@
     <b-button
       variant="primary"
       class="mr-3"
-      :disabled="selectedIndex === null"
+      :disabled="selectedIndex === null || answered"
       @click="submitAnswer"
       >SUBMIT</b-button
     >
@@ -42,6 +42,7 @@ export default {
     return {
       answers: [],
       selectedIndex: null,
+      answered: false
     };
   },
   methods: {
@@ -57,6 +58,9 @@ export default {
       this.selectedIndex = index;
     },
     submitAnswer() {
+      // indicate that user has answered
+      this.answered = true
+
       // first we determine the index of correct_answer
       let correctIndex = this.answers.indexOf(
         this.currentQuestion.correct_answer
@@ -73,7 +77,7 @@ export default {
   },
   watch: {
     currentQuestion: {
-      /* whenever a new value is passed to currentQuestion prop is passed
+      /* whenever a new value is passed to currentQuestion prop,
         run the shuffleAnswer method
       */
 
@@ -85,6 +89,7 @@ export default {
       handler() {
         this.shuffleAnswers();
         this.selectedIndex = null;
+        this.answered = false;
       },
     },
   },
