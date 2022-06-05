@@ -11,6 +11,8 @@
         v-for="(answer, index) in answers"
         :key="index"
         v-html="answer"
+        @click = "selectAnswer(index)"
+        :class="[selectedIndex === index ? 'selected' : '']"
       >
       </b-list-group-item>
     </b-list-group>
@@ -32,10 +34,11 @@ export default {
   data() {
     return {
       answers: [],
+      selectedIndex: null,
     };
   },
   methods: {
-    shuffleAnswer() {
+    shuffleAnswers() {
       // append correct to array of incorrect answers
       let answers = [...this.currentQuestion.incorrect_answers];
       answers.push(this.currentQuestion.correct_answer);
@@ -43,6 +46,9 @@ export default {
       // shuffle the answers such that the correct answer is not always last
       this.answers = _.shuffle(answers);
     },
+    selectAnswer(index){
+      this.selectedIndex = index;
+    }
   },
   watch: {
     currentQuestion: {
@@ -56,7 +62,7 @@ export default {
       */
       immediate: true,
       handler() {
-        this.shuffleAnswer();
+        this.shuffleAnswers();
       },
     },
   },
@@ -66,5 +72,19 @@ export default {
 <style scoped>
 .list-group-item:hover {
   background-color: #e9ecef;
+  cursor: pointer;
+}
+
+.selected,
+.selected:hover{
+  background-color: #007bff;
+  color: #fff;
+  cursor:auto;
+}
+.correct{
+  background-color: #28a745;
+}
+.incorrect{
+  background-color: #dc3545;
 }
 </style>
