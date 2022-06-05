@@ -12,7 +12,7 @@
         :key="index"
         v-html="answer"
         @click="selectAnswer(index)"
-        :class="[selectedIndex === index ? 'selected' : '']"
+        :class="answeredClass(index)"
       >
       </b-list-group-item>
     </b-list-group>
@@ -20,7 +20,7 @@
     <b-button
       variant="primary"
       class="mr-3"
-      :disabled="selectedIndex === null || answered"
+      :disabled="selectedIndex === null || submitted"
       @click="submitAnswer"
       >SUBMIT</b-button
     >
@@ -42,7 +42,8 @@ export default {
     return {
       answers: [],
       selectedIndex: null,
-      answered: false
+      correctIndex: null,
+      submitted: false,
     };
   },
   methods: {
@@ -58,21 +59,34 @@ export default {
       this.selectedIndex = index;
     },
     submitAnswer() {
-      // indicate that user has answered
-      this.answered = true
+      // indicate that user has submitted answere
+      this.submitted = true;
 
       // first we determine the index of correct_answer
-      let correctIndex = this.answers.indexOf(
+      this.correctIndex = this.answers.indexOf(
         this.currentQuestion.correct_answer
       );
 
       let isCorrect = false;
 
-      if (this.selectedIndex === correctIndex) {
+      if (this.selectedIndex === this.correctIndex) {
         isCorrect = true;
       }
 
       this.calcScore(isCorrect);
+    },
+    answeredClass(index) {
+      if (!this.submitted && this.selectedIndex === index) {
+        return "selected";
+      } else if (this.submitted && this.correctIndex === index) {
+        return "correct";
+      } else if (
+        this.submitted &&
+        this.selectedIndex === index &&
+        this.selectedIndex !== this.correctIndex
+      ) {
+        return "incorrect";
+      }
     },
   },
   watch: {
@@ -89,7 +103,7 @@ export default {
       handler() {
         this.shuffleAnswers();
         this.selectedIndex = null;
-        this.answered = false;
+        this.submitted = false;
       },
     },
   },
@@ -108,10 +122,16 @@ export default {
   color: #fff;
   cursor: auto;
 }
-.correct {
+.correct,
+.correct:hover {
   background-color: #28a745;
+  color: #fff;
+  cursor: auto;
 }
-.incorrect {
+.incorrect,
+.incorrect:hover {
   background-color: #dc3545;
+  color: #fff;
+  cursor: auto;
 }
 </style>
