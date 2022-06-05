@@ -17,7 +17,7 @@
       </b-list-group-item>
     </b-list-group>
 
-    <b-button variant="primary" class="mr-3" href="#">SUBMIT</b-button>
+    <b-button variant="primary" class="mr-3" :disabled="selectedIndex === null">SUBMIT</b-button>
     <b-button variant="success" href="#" @click="next">NEXT</b-button>
   </b-jumbotron>
 </template>
@@ -63,6 +63,7 @@ export default {
       immediate: true,
       handler() {
         this.shuffleAnswers();
+        this.selectedIndex = null;
       },
     },
   },
