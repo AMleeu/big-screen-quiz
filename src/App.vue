@@ -9,6 +9,7 @@
             v-if="questions.length"
             :currentQuestion="questions[index]"
             :next="next"
+            :indexofCurrentQuestion = "index"
             :calcScore="calcScore"
           />
         </b-col>

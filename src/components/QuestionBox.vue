@@ -24,7 +24,13 @@
       @click="submitAnswer"
       >SUBMIT</b-button
     >
-    <b-button variant="success" href="#" @click="next">NEXT</b-button>
+    <b-button
+      variant="success"
+      :disabled="!submitted"
+      @click="next"
+      v-show="!hideNEXT"
+      >NEXT</b-button
+    >
   </b-jumbotron>
 </template>
 
@@ -36,6 +42,7 @@ export default {
   props: {
     currentQuestion: Object,
     next: Function,
+    indexofCurrentQuestion: Number,
     calcScore: Function,
   },
   data() {
@@ -44,6 +51,7 @@ export default {
       selectedIndex: null,
       correctIndex: null,
       submitted: false,
+      hideNEXT: false,
     };
   },
   methods: {
@@ -91,14 +99,19 @@ export default {
   },
   watch: {
     currentQuestion: {
-      /* whenever a new value is passed to currentQuestion prop,
+      /* 
+        whenever a new value is passed to currentQuestion prop,
         run the shuffleAnswer method
-      */
 
-      /* make is so that this starts right away as opposed to wait for the user
+        make is so that this starts right away as opposed to wait for the user
         to navigate to next question
         that is - treat the initially passed currentQuestion value as a new as well
       */
+
+     /* 
+      reset selectedIndex & submitted
+      whenever a new value is passed to currentQuestion prop
+     */
       immediate: true,
       handler() {
         this.shuffleAnswers();
@@ -106,6 +119,15 @@ export default {
         this.submitted = false;
       },
     },
+    indexofCurrentQuestion(){
+      /*
+        hide NEXT button when user gets to the last question 
+        (that is - the 10th question)
+      */
+      if(this.indexofCurrentQuestion === 9){
+        this.hideNEXT = true;
+      }
+    }
   },
 };
 </script>
