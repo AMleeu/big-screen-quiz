@@ -31,6 +31,16 @@
       v-show="!hideNEXT"
       >NEXT</b-button
     >
+    <b-button
+      v-b-modal="'my-modal'"
+      variant="success"
+      v-show="hideNEXT"
+      :disabled="!submitted"
+      >FINISH</b-button
+    >
+    <b-modal id="my-modal" ok-only>
+      💥 WELL DONE 💥, see RESULTS IN HEADER!! 🎉
+    </b-modal>
   </b-jumbotron>
 </template>
 
@@ -108,7 +118,7 @@ export default {
         that is - treat the initially passed currentQuestion value as a new as well
       */
 
-     /* 
+      /* 
       reset selectedIndex & submitted
       whenever a new value is passed to currentQuestion prop
      */
@@ -119,15 +129,15 @@ export default {
         this.submitted = false;
       },
     },
-    indexofCurrentQuestion(){
+    indexofCurrentQuestion() {
       /*
         hide NEXT button when user gets to the last question 
-        (that is - the 10th question)
+        (that is - the 5th question)
       */
-      if(this.indexofCurrentQuestion === 9){
+      if (this.indexofCurrentQuestion === 4) {
         this.hideNEXT = true;
       }
-    }
+    },
   },
 };
 </script>
