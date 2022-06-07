@@ -18,14 +18,14 @@
     </b-list-group>
 
     <b-button
-      variant="primary"
+      variant="info"
       class="mr-3"
       :disabled="selectedIndex === null || submitted"
       @click="submitAnswer"
       >SUBMIT</b-button
     >
     <b-button
-      variant="success"
+      variant="secondary"
       :disabled="!submitted"
       @click="next"
       v-show="!hideNEXT"
@@ -33,13 +33,13 @@
     >
     <b-button
       v-b-modal="'my-modal'"
-      variant="success"
+      variant="secondary"
       v-show="hideNEXT"
       :disabled="!submitted"
       >FINISH</b-button
     >
     <b-modal id="my-modal" ok-only>
-      💥 WELL DONE 💥, see RESULTS IN HEADER!! 🎉
+      💥 WELL DONE, see RESULTS IN HEADER!! 🎉
     </b-modal>
   </b-jumbotron>
 </template>
@@ -150,19 +150,19 @@ export default {
 
 .selected,
 .selected:hover {
-  background-color: #007bff;
+  background-color: #17a2b8;
   color: #fff;
   cursor: auto;
 }
 .correct,
 .correct:hover {
-  background-color: #28a745;
+  background-color: #38b44a;
   color: #fff;
   cursor: auto;
 }
 .incorrect,
 .incorrect:hover {
-  background-color: #dc3545;
+  background-color: #CC231E;
   color: #fff;
   cursor: auto;
 }

@@ -1,11 +1,10 @@
 <template>
   <b-nav tabs>
-    <b-nav-item disabled class="mt-2"><h4>BIG SCREEN Quiz</h4></b-nav-item>
-    <b-nav-item disabled>
+    <b-nav-item disabled class="mt-2"><h3 id="logo">BIG SCREEN Quiz</h3></b-nav-item>
+    <b-nav-item disabled class="mt-1">
       <b-button variant="secondary">
-        correct
-        <b-badge variant="success" class="lead">{{ correctAnswers }}</b-badge>
-        &nbsp; | &nbsp; total
+        correct ({{ correctAnswers }})
+        &nbsp;  | &nbsp; total
         <b-badge variant="light" class="lead">{{ totalAnswers }}</b-badge>
       </b-button>
     </b-nav-item>
@@ -20,3 +19,12 @@ export default {
   },
 };
 </script>
+
+
+<style scoped>
+  @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+
+  #logo{
+    font-family: 'Bebas Neue', cursive !important;
+  }
+</style>
