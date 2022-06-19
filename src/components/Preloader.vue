@@ -17,7 +17,7 @@
         left: 0;
         width: 100vw;
         height: 100vh;
-        background-color: #333;
+        background-color: #fafafa;
         z-index: 999;
     }
 
@@ -25,7 +25,6 @@
         height: 75px;
         width: 75px;
         margin-right: 10px;
-        background-color: #fafafa;
         border-radius: 50%;
         display: block;
         margin-top: 45vh;

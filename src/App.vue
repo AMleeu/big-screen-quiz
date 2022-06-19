@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <Preloader />
+    <Preloader v-show="showPreloader" />
     <Header :correctAnswers="correctAnswers" :totalAnswers="totalAnswers" />
 
     <b-container>
@@ -37,6 +37,7 @@ export default {
       index: 0,
       totalAnswers: 0,
       correctAnswers: 0,
+      showPreloader: true
     };
   },
   methods: {
@@ -51,6 +52,11 @@ export default {
     },
   },
   mounted: function () {
+    /*
+      fetch data from API
+      format said data
+      populate questions array with data
+    */
     fetch(
       "https://opentdb.com/api.php?amount=5&category=11&difficulty=easy&type=multiple",
       { method: "GET" }
@@ -64,6 +70,12 @@ export default {
         // feed application state property with jsonData
         this.questions = jsonData.results;
       });
+
+      /*
+        hide Preloader after 5 seconds of having rendred
+      */
+     setTimeout(()=>this.showPreloader=false, 5000);
+
   },
 };
 </script>
