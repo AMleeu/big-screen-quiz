@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <Preloader />
     <Header :correctAnswers="correctAnswers" :totalAnswers="totalAnswers" />
 
     <b-container>
@@ -21,11 +22,13 @@
 <script>
 import QuestionBox from "./components/QuestionBox.vue";
 import Header from "./components/Header.vue";
+import Preloader from "./components/Preloader.vue"
 
 export default {
   name: "App",
   components: {
     Header,
+    Preloader,
     QuestionBox,
   },
   data() {
