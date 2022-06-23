@@ -10,7 +10,7 @@
             v-if="questions.length"
             :currentQuestion="questions[index]"
             :next="next"
-            :indexofCurrentQuestion = "index"
+            :indexofCurrentQuestion="index"
             :calcScore="calcScore"
           />
         </b-col>
@@ -22,7 +22,7 @@
 <script>
 import QuestionBox from "./components/QuestionBox.vue";
 import Header from "./components/Header.vue";
-import Preloader from "./components/Preloader.vue"
+import Preloader from "./components/Preloader.vue";
 
 export default {
   name: "App",
@@ -37,7 +37,7 @@ export default {
       index: 0,
       totalAnswers: 0,
       correctAnswers: 0,
-      showPreloader: true
+      showPreloader: true,
     };
   },
   methods: {
@@ -51,7 +51,7 @@ export default {
       this.totalAnswers++;
     },
   },
-  mounted: function () {
+  created: function () {
     /*
       fetch data from API
       format said data
@@ -70,12 +70,12 @@ export default {
         // feed application state property with jsonData
         this.questions = jsonData.results;
       });
-
-      /*
-        hide Preloader after 5 seconds of having rendred
-      */
-     setTimeout(()=>this.showPreloader=false, 5000);
-
+  },
+  mounted: function () {
+    /*
+      hide Preloader after 5 seconds of having rendred
+    */
+    setTimeout(() => (this.showPreloader = false), 5000);
   },
 };
 </script>
